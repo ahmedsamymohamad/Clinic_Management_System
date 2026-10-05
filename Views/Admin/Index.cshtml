@@ -1,0 +1,15 @@
+@using Clinic_Management_System.Models
+@{ ViewData["Title"] = "Admin portal"; var appointments = (IEnumerable<Appointment>)ViewBag.Appointments; }
+<h1>Admin portal</h1>
+<p class="text-muted">Manage all resources through the protected admin API at <code>/api/admin</code>: users, departments, doctors, patients, appointments, medical records, prescriptions, and prescription items.</p>
+<div class="row g-3 mb-4">
+    <div class="col-md-4"><div class="card p-3"><strong>Patients</strong><span class="display-6">@ViewBag.PatientCount</span></div></div>
+    <div class="col-md-4"><div class="card p-3"><strong>Doctors</strong><span class="display-6">@ViewBag.DoctorCount</span></div></div>
+    <div class="col-md-4"><div class="card p-3"><strong>Pending appointments</strong><span class="display-6">@ViewBag.PendingCount</span></div></div>
+</div>
+<table class="table table-hover"><thead><tr><th>Patient</th><th>Doctor</th><th>When</th><th>Status</th><th>Action</th></tr></thead><tbody>
+@foreach (var appointment in appointments) {
+<tr><td>@appointment.Patient.User.FullName</td><td>@appointment.Doctor.User.FullName</td><td>@appointment.StartsAt.ToString("dd MMM yyyy, HH:mm")</td><td>@appointment.Status</td><td>
+<form asp-action="ChangeAppointmentStatus" method="post" class="d-flex gap-2"><input type="hidden" name="id" value="@appointment.Id" /><select name="status" class="form-select form-select-sm"><option value="Accepted">Accept</option><option value="Rejected">Reject</option><option value="Completed">Complete</option></select><button class="btn btn-sm btn-primary">Save</button></form>
+</td></tr>}
+</tbody></table>

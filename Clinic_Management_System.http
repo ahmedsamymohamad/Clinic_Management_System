@@ -1,0 +1,32 @@
+@baseUrl = https://localhost:7009
+
+### List appointments
+GET {{baseUrl}}/api/appointments
+
+### Book an appointment (patient 1, doctor 1)
+POST {{baseUrl}}/api/appointments
+Content-Type: application/json
+
+{
+  "patientId": 1,
+  "doctorId": 1,
+  "startsAt": "2026-10-10T15:30:00+03:00",
+  "durationMinutes": 30,
+  "reason": "Routine consultation"
+}
+
+### Accept an appointment
+PATCH {{baseUrl}}/api/appointments/1/status
+Content-Type: application/json
+
+{
+  "status": "Accepted"
+}
+
+### Reject an appointment
+PATCH {{baseUrl}}/api/appointments/1/status
+Content-Type: application/json
+
+{
+  "status": "Rejected"
+}

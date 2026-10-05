@@ -1,0 +1,27 @@
+@using Clinic_Management_System.Models
+@{ ViewData["Title"] = "Doctor portal"; var appointments = (IEnumerable<Appointment>)ViewBag.Appointments; var doctor = (Doctor)ViewBag.Doctor; }
+<h1>Doctor portal</h1><p class="text-muted">Dr. @doctor.User.FullName</p>
+<table class="table table-hover"><thead><tr><th>Patient</th><th>When</th><th>Reason</th><th>Status</th><th>Actions</th></tr></thead><tbody>
+@foreach (var appointment in appointments) {
+<tr><td>@appointment.Patient.User.FullName</td><td>@appointment.StartsAt.ToString("dd MMM yyyy, HH:mm")</td><td>@appointment.Reason</td><td>@appointment.Status</td><td>
+<div class="d-flex gap-2">
+@if (appointment.Status == AppointmentStatus.Pending)
+{
+<form asp-action="UpdateAppointmentStatus" method="post"><input type="hidden" name="id" value="@appointment.Id" /><input type="hidden" name="status" value="Accepted" /><button class="btn btn-sm btn-success">Accept</button></form>
+<form asp-action="UpdateAppointmentStatus" method="post"><input type="hidden" name="id" value="@appointment.Id" /><input type="hidden" name="status" value="Rejected" /><button class="btn btn-sm btn-outline-danger">Reject</button></form>
+}
+@if (appointment.Status == AppointmentStatus.Accepted)
+{
+<a class="btn btn-sm btn-primary" asp-action="Consultation" asp-route-id="@appointment.Id">Consult</a>
+}
+@if (appointment.Status == AppointmentStatus.Completed)
+{
+<span class="text-success">Consultation completed</span>
+}
+@if (appointment.Status == AppointmentStatus.Rejected || appointment.Status == AppointmentStatus.Cancelled)
+{
+<span class="text-muted">No further actions</span>
+}
+</div>
+</td></tr>}
+</tbody></table>

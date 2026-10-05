@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Clinic_Management_System</name>
+    </assembly>
+    <members>
+        <member name="M:Clinic_Management_System.Controllers.AppointmentsController.GetAll(System.Threading.CancellationToken)">
+            <summary>Lists appointments ordered by their scheduled start time.</summary>
+        </member>
+        <member name="M:Clinic_Management_System.Controllers.AppointmentsController.GetById(System.Int32,System.Threading.CancellationToken)">
+            <summary>Gets one appointment by identifier.</summary>
+        </member>
+        <member name="M:Clinic_Management_System.Controllers.AppointmentsController.Book(Clinic_Management_System.Services.BookAppointmentRequest,System.Threading.CancellationToken)">
+            <summary>Books an appointment after validating the patient, doctor, and time conflict.</summary>
+        </member>
+        <member name="M:Clinic_Management_System.Controllers.AppointmentsController.ChangeStatus(System.Int32,Clinic_Management_System.Controllers.ChangeStatusRequest,System.Threading.CancellationToken)">
+            <summary>Accepts or rejects an appointment request.</summary>
+        </member>
+        <member name="T:Clinic_Management_System.Controllers.ChangeStatusRequest">
+            <summary>Appointment status update payload.</summary>
+        </member>
+        <member name="M:Clinic_Management_System.Controllers.ChangeStatusRequest.#ctor(Clinic_Management_System.Models.AppointmentStatus)">
+            <summary>Appointment status update payload.</summary>
+        </member>
+        <member name="T:Clinic_Management_System.Migrations.InitialCreate">
+            <inheritdoc />
+        </member>
+        <member name="M:Clinic_Management_System.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Clinic_Management_System.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Clinic_Management_System.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Clinic_Management_System.Services.BookAppointmentRequest">
+            <summary>Payload used to request a clinic appointment.</summary>
+        </member>
+        <member name="M:Clinic_Management_System.Services.BookAppointmentRequest.#ctor(System.Int32,System.Int32,System.DateTimeOffset,System.Int32,System.String)">
+            <summary>Payload used to request a clinic appointment.</summary>
+        </member>
+        <member name="T:Clinic_Management_System.Services.AppointmentResponse">
+            <summary>Appointment data returned by the clinic API.</summary>
+        </member>
+        <member name="M:Clinic_Management_System.Services.AppointmentResponse.#ctor(System.Int32,System.Int32,System.String,System.Int32,System.String,System.DateTimeOffset,System.Int32,Clinic_Management_System.Models.AppointmentStatus,System.String)">
+            <summary>Appointment data returned by the clinic API.</summary>
+        </member>
+        <member name="T:Program">
+            <summary>
+            Auto-generated public partial Program class for top-level statement apps.
+            </summary>
+        </member>
+    </members>
+</doc>

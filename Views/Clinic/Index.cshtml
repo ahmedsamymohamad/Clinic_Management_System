@@ -1,0 +1,53 @@
+@model IReadOnlyList<Clinic_Management_System.Models.Appointment>
+@{
+    ViewData["Title"] = "Clinic dashboard";
+}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div><h1>Clinic dashboard</h1><p class="text-muted">Appointments and care workflow</p></div>
+    <a class="btn btn-primary" asp-action="Book">Book appointment</a>
+</div>
+<div class="table-responsive">
+<table class="table table-hover align-middle">
+    <thead><tr><th>Patient</th><th>Doctor</th><th>When</th><th>Status</th><th>Reason</th></tr></thead>
+    <tbody>
+    @foreach (var appointment in Model)
+    {
+        <tr>
+            <td>@appointment.Patient.User.FullName</td>
+            <td>@appointment.Doctor.User.FullName</td>
+            <td>@appointment.StartsAt.ToString("dd MMM yyyy, HH:mm")</td>
+            <td><span class="badge text-bg-@(appointment.Status == Clinic_Management_System.Models.AppointmentStatus.Accepted ? "success" : "secondary")">@appointment.Status</span></td>
+            <td>@appointment.Reason</td>
+        </tr>
+        @if (User.IsInRole("Patient") && appointment.MedicalRecord is not null)
+        {
+            <tr class="table-light">
+                <td colspan="5">
+                    <div class="p-2">
+                        <h5 class="mb-2">Consultation result</h5>
+                        <dl class="row mb-2">
+                            <dt class="col-sm-2">Diagnosis</dt>
+                            <dd class="col-sm-10">@appointment.MedicalRecord.Diagnosis</dd>
+                            <dt class="col-sm-2">Doctor notes</dt>
+                            <dd class="col-sm-10">@appointment.MedicalRecord.Notes</dd>
+                            <dt class="col-sm-2">Recorded</dt>
+                            <dd class="col-sm-10">@appointment.MedicalRecord.RecordedAt.ToString("dd MMM yyyy, HH:mm")</dd>
+                        </dl>
+                        @foreach (var prescription in appointment.MedicalRecord.Prescriptions)
+                        {
+                            <h6>Prescription</h6>
+                            <ul class="mb-0">
+                                @foreach (var item in prescription.Items)
+                                {
+                                    <li><strong>@item.MedicationName</strong> — @item.Dosage, @item.Frequency, @item.DurationDays day(s)</li>
+                                }
+                            </ul>
+                        }
+                    </div>
+                </td>
+            </tr>
+        }
+    }
+    </tbody>
+</table>
+</div>

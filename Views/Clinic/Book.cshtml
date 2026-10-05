@@ -1,0 +1,15 @@
+@model Clinic_Management_System.Models.Appointment
+@{
+    ViewData["Title"] = "Book appointment";
+    var doctors = (IEnumerable<Clinic_Management_System.Models.Doctor>)ViewBag.Doctors;
+}
+<h1>Book appointment</h1>
+<form asp-action="Book" method="post" class="row g-3">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="col-md-6"><label asp-for="DoctorId" class="form-label">Doctor</label><select asp-for="DoctorId" class="form-select"><option value="">Select doctor</option>@foreach (var d in doctors) {<option value="@d.Id">@d.User.FullName (@d.Department.Name)</option>}</select><span asp-validation-for="DoctorId" class="text-danger"></span></div>
+    <div class="col-md-6"><label asp-for="StartsAt" class="form-label">Date and time</label><input asp-for="StartsAt" type="datetime-local" class="form-control" /><span asp-validation-for="StartsAt" class="text-danger"></span></div>
+    <div class="col-md-6"><label asp-for="DurationMinutes" class="form-label">Duration (minutes)</label><input asp-for="DurationMinutes" class="form-control" min="15" max="120" /><span asp-validation-for="DurationMinutes" class="text-danger"></span></div>
+    <div class="col-12"><label asp-for="Reason" class="form-label">Reason</label><textarea asp-for="Reason" class="form-control"></textarea><span asp-validation-for="Reason" class="text-danger"></span></div>
+    <div class="col-12"><button class="btn btn-primary">Book appointment</button> <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a></div>
+</form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

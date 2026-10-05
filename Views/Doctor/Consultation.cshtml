@@ -1,0 +1,12 @@
+@model Clinic_Management_System.Models.Appointment
+@{ ViewData["Title"] = "Consultation"; }
+<h1>Consultation</h1><p>Patient: <strong>@Model.Patient.User.FullName</strong></p>
+<form asp-action="Consultation" method="post" class="col-md-8">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <label class="form-label">Diagnosis</label><textarea name="diagnosis" class="form-control mb-3">@Model.MedicalRecord?.Diagnosis</textarea>
+    <label class="form-label">Consultation notes</label><textarea name="notes" class="form-control mb-3">@Model.MedicalRecord?.Notes</textarea>
+    <h4>Prescription (optional)</h4>
+    <input name="medicationName" class="form-control mb-2" placeholder="Medication name" />
+    <div class="row g-2 mb-3"><div class="col"><input name="dosage" class="form-control" placeholder="Dosage" /></div><div class="col"><input name="frequency" class="form-control" placeholder="Frequency" /></div><div class="col"><input name="durationDays" type="number" class="form-control" placeholder="Days" min="1" /></div></div>
+    <button class="btn btn-primary">Save medical record</button> <a asp-action="Index" class="btn btn-outline-secondary">Back</a>
+</form>
